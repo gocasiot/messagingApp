@@ -1,0 +1,40 @@
+{
+  "name": "yiftee_challenge",
+  "version": "1.0.0",
+  "description": "Gustavo's Messaging App",
+  "main": "server/start.js",
+  "scripts": {
+    "start": "nodemon --watch server -e js,html server/start.js",
+    "postinstall": "gulp build"
+  },
+  "author": "Gustavo Ocasio",
+  "license": "ISC",
+  "engines": {
+    "node": ">=4.0.0"
+  },
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-ui-bootstrap": "^2.1.3",
+    "babel": "^6.5.2",
+    "bootstrap": "^3.3.7",
+    "chalk": "^1.1.3",
+    "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-clean-css": "^2.0.10",
+    "gulp-concat": "^2.6.0",
+    "gulp-eslint": "^2.0.0",
+    "gulp-livereload": "^3.8.1",
+    "gulp-ng-annotate": "^2.0.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.4",
+    "nodemon": "^1.3.7",
+    "run-sequence": "^1.1.5",
+    "serve-favicon": "^2.2.0"
+  },
+  "devDependencies": {}
+}

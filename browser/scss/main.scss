@@ -1,0 +1,19 @@
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+$lightGrey: #F3F3F3;
+$mintGreen: #96DED0;
+$offBlack: #555;
+
+* {
+	font-family: 'Montserrat', sans-serif;
+}
+
+html,
+body {
+	margin:0;
+	padding:0;
+	height:100%;
+}
+
+
+@import 'home/home';
