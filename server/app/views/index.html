@@ -7,14 +7,70 @@
     <title>Gustavo's Messaging App</title>
     <link rel="stylesheet" type="text/css" href="/style.css"/>
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
     <script src="/angular/angular.js"></script>
     <script src="/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
 
     <script src="/main.js"></script>
     
 </head>
-<body ng-app="MessageApp" ng-controller="">
+<body ng-app="MessageApp" ng-controller="MsgCtrl" id="main">
+    <div id="messageForm">
+    <div class="container center_div">
+        <form name="messageForm" ng-submit="sendMessage()" novalidate class="form-horizontal">
+
+            <div ng-repeat="recipient in recipients track by $index" class="form-group">
+                <ng-form name="recipientInfoForm" class="form-group">
+                    <div class="col-xs-12 col-sm-3">
+                        <input type="text" name="name" ng-model="recipient.name" placeholder="Name" uib-typeahead="result.name for result in findRecipient($viewValue)" typeahead-on-select="autoCompleteOtherFields($item)" required class="form-control formInput">
+                        <p class="validationMsg" ng-show="recipientInfoForm.name.$error.required && (recipientInfoForm.name.$touched || recipientInfoForm.email.$touched || recipientInfoForm.sms.$touched)">Recipient's name is required</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
+                        <input type="email" name="email" ng-model="recipient.email" placeholder="Email" ng-required="!(recipient.email || recipient.sms)" class="form-control formInput">
+                        <p class="validationMsg" ng-show="recipientInfoForm.email.$error.required && (recipientInfoForm.name.$touched || recipientInfoForm.email.$touched || recipientInfoForm.sms.$touched)">Recipient's email and/or sms is required</p>
+                        <p class="validationMsg" ng-show="recipientInfoForm.email.$error.email && recipientInfoForm.email.$invalid">Please type in a valid email</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-3">
+                        <input type="number" name="sms" ng-model="recipient.sms" placeholder="SMS" minlength="10" maxlength="10" class="form-control formInput">
+                        <p class="validationMsg" ng-show="recipientInfoForm.sms.$error.minlength || recipientInfoForm.sms.$error.maxlength">Please type in a valid phone number</p>
+                    </div>
+                    <div class="col-xs-12 col-sm-1">
+                        <button type="button" ng-disabled="recipientInfoForm.$invalid" ng-show="showAddButton($index)" ng-click="add()" class="btn btn-default pull-right formInput">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="col-xs-12 col-sm-2">
+                        <div class="checkbox">
+                            <label id="customMsg"><input type="checkbox" name="customMsg" ng-model="customMsgCheckbox[$index]" ng-change="stateChanged($index)">Custom Message</label>
+                        </div>
+                    </div>
+
+                </ng-form>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-12">
+                <textarea name="msgText" ng-model="message.text" placeholder="Your message" rows="4" maxlength="140" required class="form-control"></textarea>
+                <br>
+                <select name="msgTemplates" ng-model="message.text" class="form-control">
+                    <option value="" disabled selected>Message Templates</option>
+                    <option ng-repeat="template in templates">{{ template }}</option>
+                </select>
+                </div>
+            </div>
+            <br>
+            <textarea name="customMsgText" ng-model="customMsg.text" ng-show="showCustomMsg" placeholder="Custom Individual Message" maxlength="140" class="form-control"></textarea>
+
+            <br><br>
+
+            <div class="text-center">
+                <button type="submit" ng-disabled="!atLeastOneRecipient || messageForm.msgText.$error.required" class="btn btn-warning btn-block">Send Message</button>
+            </div>
+        </form>  
+    </div>
+    </div>
 
 </body>
 </html>

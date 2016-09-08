@@ -9,7 +9,6 @@ module.exports = app;
 // function located at server/app/configure/index.js
 require('./configure')(app);
 
-
 // This middleware will catch any URLs resembling a file extension
 // for example : .js, .html, .css
 app.use(function(req, res, next) {
